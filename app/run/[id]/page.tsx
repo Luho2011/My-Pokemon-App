@@ -15,8 +15,8 @@ import SoulLinkColumn from "@/components/SoulLinkColumn"
 import DeathList from "@/components/DeathList"
 import { createPokemon } from "@/lib/createPokemon"
 
-export default function RunPage({ params }: any) {
-  const { id } = use(params)
+export default function RunPage({ params }: { params: { id: string } }) {
+  const id = params.id
   const [selectedPokemon, setSelectedPokemon] = useState<any>(null)
   const [activePokemon, setActivePokemon] = useState<any>(null)
   const [board, setBoard] = useState<any>({
