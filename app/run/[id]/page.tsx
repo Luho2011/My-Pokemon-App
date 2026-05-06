@@ -8,15 +8,18 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core"
-
 import PokemonSearch from "@/components/PokemonSearch"
 import PokemonCard from "@/components/PokemonCard"
 import SoulLinkColumn from "@/components/SoulLinkColumn"
 import DeathList from "@/components/DeathList"
 import { createPokemon } from "@/lib/createPokemon"
 
-export default function RunPage({ params }: { params: { id: string } }) {
-  const id = params.id
+type Props = {
+  params: Promise<{ id: string }>
+}
+
+export default function RunPage({ params }: Props) {
+  const { id } = use(params)
   const [selectedPokemon, setSelectedPokemon] = useState<any>(null)
   const [activePokemon, setActivePokemon] = useState<any>(null)
   const [board, setBoard] = useState<any>({
