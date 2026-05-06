@@ -14,9 +14,13 @@ export default function Home() {
   }
 
   return (
-    <main className="flex h-screen items-center justify-center">
+    <main 
+      className="flex h-screen items-center justify-center bg-cover"
+      style={{
+      backgroundImage: "url('/poke-bg.JPG')",
+    }}>
       <form action={createRun}>
-        <button className="px-6 py-3 bg-black text-white rounded cursor-pointer">
+        <button className="px-6 py-3 bg-black text-white hover:bg-gray-600 rounded cursor-pointer mt-30">
           Run starten
         </button>
       </form>
