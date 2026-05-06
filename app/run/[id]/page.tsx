@@ -14,11 +14,8 @@ import SoulLinkColumn from "@/components/SoulLinkColumn"
 import DeathList from "@/components/DeathList"
 import { createPokemon } from "@/lib/createPokemon"
 
-type Props = {
-  params: Promise<{ id: string }>
-}
 
-export default function RunPage({ params }: Props) {
+export default function RunPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
   const [selectedPokemon, setSelectedPokemon] = useState<any>(null)
   const [activePokemon, setActivePokemon] = useState<any>(null)
@@ -59,7 +56,7 @@ export default function RunPage({ params }: Props) {
     }
 
     load()
-  }, [params.id])
+  }, [id])
 
   // 🔥 SEARCH SELECT
 const handleSelectPokemon = async (pokemon: any) => {
