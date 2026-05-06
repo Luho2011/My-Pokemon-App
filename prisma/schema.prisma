@@ -1,0 +1,35 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Run {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+
+  pokemon   Pokemon[]
+}
+
+model Pokemon {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+
+  name        String
+  img         String
+  instanceId  String   @unique
+
+  runId       String
+  run         Run      @relation(fields: [runId], references: [id])
+
+  slot        String   // player1 | player2 | player3 | player4 | death
+}
+
+enum Status {
+  ALIVE
+  DEAD
+}
