@@ -7,11 +7,11 @@ export default function DeathList({ pokemonList }: any) {
   return (
     <div
       ref={setNodeRef}
-      className={`border p-3 mt-6 min-h-[200px] bg-red-300 ${
-        isOver ? "bg-red-100" : ""
+      className={`border-2 border-red-500 rounded-2xl bg-linear-to-br from-red-400 to-red-500 shadow-lg shadow-green-900/20 p-3 mt-6 min-h-[200px] ${
+        isOver ? "bg-green-100" : ""
       }`}
     >
-      <h2 className="font-bold mb-2">💀 Deathlist</h2>
+      <h2 className="font-bold mb-2">💀 Todesliste</h2>
 
       <div className="flex flex-wrap gap-2">
         {pokemonList.map((p: any) => (

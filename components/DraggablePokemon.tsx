@@ -9,7 +9,7 @@ export default function DraggablePokemon({ pokemon }: any) {
   })
 
   return (
-    <div className="bg-green-300 px-22">
+    <div className="border-3 border-green-400 rounded-2xl bg-linear-to-br from-green-300 to-emerald-400 shadow-lg shadow-green-900/20 px-22">
       <img
         ref={setNodeRef}
         {...listeners}

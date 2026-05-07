@@ -53,15 +53,15 @@ export default function PokemonSearch({
     
 
   return (
-    <div ref={wrapperRef} className="max-w-md">
+    <div ref={wrapperRef} className="max-w-md p-3 bg-blue-900/90 border-3 border-gray-400 rounded-2xl">
       <input
-        className="border p-2 rounded"
+        className="border-2 border-blue-300 p-2 rounded text-white"
         placeholder="Suche Pokémon..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
 
-      <div className="mt-2 bg-white border rounded shadow w-[212px]">
+      <div className="mt-2 bg-blue-950 border-2 border-blue-400 rounded-2xl shadow w-[212px]">
         {filtered.map((p) => {
           const id = getPokemonId(p.url)
           return (
@@ -71,7 +71,7 @@ export default function PokemonSearch({
                   setSelectedPokemon(p)
                   setQuery("") // 👈 auch schließen nach Auswahl
                 }}
-              className="flex items-center p-1 hover:bg-gray-100 cursor-pointer"
+              className="flex items-center p-1 hover:bg-blue-800 rounded-2xl cursor-pointer text-white"
             >
               <img
                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}

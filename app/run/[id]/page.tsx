@@ -129,8 +129,13 @@ await fetch("/api/pokemon/move", {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <div className="p-6 space-y-6 relative flex flex-col items-center">
-
+      <div className="px-2 py-2 relative flex flex-col items-center min-h-screen bg-[url('/run-bg.png')] bg-cover bg-center">
+        <div className="w-80 object-contain top-0 mb-2">
+            <img
+              src="/logo.png"
+              alt="Logo"
+            />
+        </div>
         <div className="absolute top-1 left-1">
           <PokemonSearch setSelectedPokemon={handleSelectPokemon} />
           {selectedPokemon && (
@@ -138,11 +143,11 @@ await fetch("/api/pokemon/move", {
           )}
         </div>
 
-        <div className="flex justify-center gap-3 w-[1310px]">
-          <SoulLinkColumn id="player1" player="P1" pokemonList={board.player1} />
-          <SoulLinkColumn id="player2" player="P2" pokemonList={board.player2} />
-          <SoulLinkColumn id="player3" player="P3" pokemonList={board.player3} />
-          <SoulLinkColumn id="player4" player="P4" pokemonList={board.player4} />
+        <div className="flex justify-center gap-3">
+          <SoulLinkColumn id="player1" player="P1" pokemonList={board.player1} color="blue" />
+          <SoulLinkColumn id="player2" player="P2" pokemonList={board.player2} color="yellow" />
+          <SoulLinkColumn id="player3" player="P3" pokemonList={board.player3} color="purple" />
+          <SoulLinkColumn id="player4" player="P4" pokemonList={board.player4} color="gray" />
         </div>
 
         <DeathList pokemonList={board.death} />
