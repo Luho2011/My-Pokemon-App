@@ -8,6 +8,8 @@ const colorVariants = {
   gray: "from-gray-950/70 to-gray-800/70 shadow-gray-900/40",
 }
 
+type ColorVariant = keyof typeof colorVariants
+
 type Pokemon = {
   instanceId: string
   name: string
