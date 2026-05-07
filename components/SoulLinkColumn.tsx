@@ -8,7 +8,20 @@ const colorVariants = {
   gray: "from-gray-950/70 to-gray-800/70 shadow-gray-900/40",
 }
 
-export default function SoulLinkColumn({ id, player, pokemonList, color }: any) {
+type Pokemon = {
+  instanceId: string
+  name: string
+  img: string
+}
+
+type Props = {
+  id: string
+  player: string
+  pokemonList: Pokemon[]
+  color: ColorVariant
+}
+
+export default function SoulLinkColumn({ id, player, pokemonList, color }: Props) {
   const { setNodeRef, isOver } = useDroppable({ id })
 
   return (
