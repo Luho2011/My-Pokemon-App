@@ -19,6 +19,10 @@ hornliu: "weedle",
 kokuna: "kakuna",
 bibor: "beedrill",
 
+quapsel: "poliwag",
+quaputzi: "poliwhirl",
+quappo: "poliwrath",
+
 taubsi: "pidgey",
 tauboga: "pidgeotto",
 tauboss: "pidgeot",
