@@ -13,6 +13,7 @@ import PokemonCard from "@/components/PokemonCard"
 import SoulLinkColumn from "@/components/SoulLinkColumn"
 import DeathList from "@/components/DeathList"
 import { createPokemon } from "@/lib/createPokemon"
+import PokemonStrength from "@/components/PokemonStrength"
 
 
 export default function RunPage({ params }: { params: Promise<{ id: string }> }) {
@@ -141,6 +142,9 @@ await fetch("/api/pokemon/move", {
           {selectedPokemon && (
             <PokemonCard pokemon={selectedPokemon} />
           )}
+          <div className="absolute left-4 mt-10 z-50 w-200">
+            <PokemonStrength />
+          </div>
         </div>
 
         <div className="flex justify-center gap-3">
