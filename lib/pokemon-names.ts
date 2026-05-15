@@ -137,7 +137,7 @@ lektrobal: "electrode",
 
 owei: "exeggcute",
 
-traagosso: "cubone",
+tragosso: "cubone",
 knogga: "marowak",
 
 kicklee: "hitmonlee",

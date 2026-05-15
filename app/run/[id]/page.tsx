@@ -48,7 +48,9 @@ export default function RunPage({ params }: { params: Promise<{ id: string }> })
         death: [],
       }
 
+      // geht die liste (db) der pokemon des run durch in api/run/ und holt alle pokemon als data. dann checken, wo es sich befindet
       data.pokemon.forEach((p: any) => {
+        // befindet sich das pokemon nicht in player1-4 oder death, dann erstelle grouped[bench]. hat pokemon slot = player1, push es grouped[player1].push(gluamanda)
         if (!grouped[p.slot]) grouped[p.slot] = []
         grouped[p.slot].push(p)
       })
