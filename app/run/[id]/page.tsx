@@ -36,7 +36,7 @@ export default function RunPage({ params }: { params: Promise<{ id: string }> })
     })
   )
 
-  // 🔥 LOAD FROM DB
+  //  LOAD FROM DB
   useEffect(() => {
     const load = async () => {
       const res = await fetch(`/api/run/${id}`)
