@@ -13,6 +13,7 @@ model Run {
   createdAt DateTime  @default(now())
 
   pokemon   Pokemon[]
+  routes Route[]
 }
 
 model Pokemon {
@@ -27,6 +28,16 @@ model Pokemon {
   run         Run      @relation(fields: [runId], references: [id])
 
   slot        String   // player1 | player2 | player3 | player4 | death
+}
+
+model Route {
+  id        String   @id @default(cuid())
+  name      String
+
+  runId String
+  run   Run @relation(fields: [runId], references: [id])
+
+  createdAt DateTime @default(now())
 }
 
 enum Status {

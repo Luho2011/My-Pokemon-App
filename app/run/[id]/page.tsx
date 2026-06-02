@@ -14,12 +14,14 @@ import SoulLinkColumn from "@/components/SoulLinkColumn"
 import DeathList from "@/components/DeathList"
 import { createPokemon } from "@/lib/createPokemon"
 import PokemonStrength from "@/components/PokemonStrength"
+import PokemonRoutes from "@/components/PokemonRoutes"
 
 
 export default function RunPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
   const [selectedPokemon, setSelectedPokemon] = useState<any>(null)
   const [activePokemon, setActivePokemon] = useState<any>(null)
+  const [routes, setRoutes] = useState<any[]>([])
   const [board, setBoard] = useState<any>({
     player1: [],
     player2: [],
@@ -56,12 +58,13 @@ export default function RunPage({ params }: { params: Promise<{ id: string }> })
       })
 
       setBoard(grouped)
+      setRoutes(data.routes || [])
     }
 
     load()
   }, [id])
 
-  // 🔥 SEARCH SELECT
+  //  SEARCH SELECT
 const handleSelectPokemon = async (pokemon: any) => {
   const created = createPokemon(pokemon)
 
@@ -77,12 +80,12 @@ const handleSelectPokemon = async (pokemon: any) => {
   })
 }
 
-  // 🔥 DRAG START
+  //  DRAG START
   const handleDragStart = (event: any) => {
     setActivePokemon(event.active.data.current)
   }
 
-  // 🔥 DRAG END (DB + UI SYNC)
+  //  DRAG END (DB + UI SYNC)
   const handleDragEnd = async (event: any) => {
     const { active, over } = event
 
@@ -94,7 +97,7 @@ const handleSelectPokemon = async (pokemon: any) => {
 
     const targetSlot = over.id
 
-    // 🔥 UI UPDATE
+    //  UI UPDATE
     setBoard((prev: any) => {
       const copy = structuredClone(prev)
 
@@ -114,7 +117,7 @@ const handleSelectPokemon = async (pokemon: any) => {
       return copy
     })
 
-    // 🔥 DB UPDATE
+    //  DB UPDATE
 await fetch("/api/pokemon/move", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
@@ -166,6 +169,10 @@ await fetch("/api/pokemon/move", {
             />
           ) : null}
         </DragOverlay>
+
+          <div className="absolute right-15 mt-45 z-50">
+            <PokemonRoutes id={id} routes={routes} />
+          </div>
 
       </div>
     </DndContext>
