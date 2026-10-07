@@ -16,9 +16,10 @@ type Props = {
   player: string
   pokemonList: Pokemon[]
   color: ColorVariant
+  onRemove: (instanceId: string) => void
 }
 
-export default function SoulLinkColumn({ id, player, pokemonList, color }: Props) {
+export default function SoulLinkColumn({ id, player, pokemonList, color, onRemove }: Props) {
   const { setNodeRef, isOver } = useDroppable({ id })
 
   return (
@@ -32,7 +33,7 @@ export default function SoulLinkColumn({ id, player, pokemonList, color }: Props
 
       <div className="flex flex-col gap-2 items-center">
         {pokemonList.map((p) => (
-          <DraggablePokemon key={p.instanceId} pokemon={p} />
+          <DraggablePokemon key={p.instanceId} pokemon={p} onRemove={onRemove} />
         ))}
       </div>
     </div>

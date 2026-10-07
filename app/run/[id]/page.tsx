@@ -133,6 +133,23 @@ await fetch("/api/pokemon/move", {
 
   }
 
+  //  REMOVE (UI + DB)
+  const handleRemovePokemon = async (instanceId: string) => {
+    setBoard((prev) => {
+      const copy = structuredClone(prev)
+      for (const key in copy) {
+        copy[key] = copy[key].filter((p) => p.instanceId !== instanceId)
+      }
+      return copy
+    })
+
+    await fetch("/api/pokemon/delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ instanceId }),
+    })
+  }
+
   return (
     <DndContext
       sensors={sensors}
@@ -157,13 +174,13 @@ await fetch("/api/pokemon/move", {
         </div>
 
         <div className="flex justify-center gap-3">
-          <SoulLinkColumn id="player1" player="P1" pokemonList={board.player1} color="blue" />
-          <SoulLinkColumn id="player2" player="P2" pokemonList={board.player2} color="yellow" />
-          <SoulLinkColumn id="player3" player="P3" pokemonList={board.player3} color="purple" />
-          <SoulLinkColumn id="player4" player="P4" pokemonList={board.player4} color="gray" />
+          <SoulLinkColumn id="player1" player="P1" pokemonList={board.player1} color="blue" onRemove={handleRemovePokemon} />
+          <SoulLinkColumn id="player2" player="P2" pokemonList={board.player2} color="yellow" onRemove={handleRemovePokemon} />
+          <SoulLinkColumn id="player3" player="P3" pokemonList={board.player3} color="purple" onRemove={handleRemovePokemon} />
+          <SoulLinkColumn id="player4" player="P4" pokemonList={board.player4} color="gray" onRemove={handleRemovePokemon} />
         </div>
 
-        <DeathList pokemonList={board.death} />
+        <DeathList pokemonList={board.death} onRemove={handleRemovePokemon} />
 
         <DragOverlay>
           {activePokemon ? (
