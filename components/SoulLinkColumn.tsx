@@ -1,5 +1,6 @@
 import { useDroppable } from "@dnd-kit/core"
 import DraggablePokemon from "./DraggablePokemon"
+import type { Pokemon } from "@/lib/types"
 
 const colorVariants = {
   blue: "from-blue-500/90 to-blue-800/90 shadow-blue-900/40",
@@ -9,12 +10,6 @@ const colorVariants = {
 }
 
 type ColorVariant = keyof typeof colorVariants
-
-type Pokemon = {
-  instanceId: string
-  name: string
-  img: string
-}
 
 type Props = {
   id: string
@@ -36,7 +31,7 @@ export default function SoulLinkColumn({ id, player, pokemonList, color }: Props
       <h2 className="font-bold mb-2 text-white">{player}</h2>
 
       <div className="flex flex-col gap-2 items-center">
-        {pokemonList.map((p: any) => (
+        {pokemonList.map((p) => (
           <DraggablePokemon key={p.instanceId} pokemon={p} />
         ))}
       </div>

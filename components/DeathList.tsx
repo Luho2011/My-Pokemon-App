@@ -1,7 +1,8 @@
 import { useDroppable } from "@dnd-kit/core"
 import DraggablePokemon from "./DraggablePokemon"
+import type { Pokemon } from "@/lib/types"
 
-export default function DeathList({ pokemonList }: any) {
+export default function DeathList({ pokemonList }: { pokemonList: Pokemon[] }) {
   const { setNodeRef, isOver } = useDroppable({ id: "death" })
 
   return (
@@ -14,7 +15,7 @@ export default function DeathList({ pokemonList }: any) {
       <h2 className="font-bold mb-2">💀 Todesliste</h2>
 
       <div className="flex flex-wrap gap-2">
-        {pokemonList.map((p: any) => (
+        {pokemonList.map((p) => (
           <DraggablePokemon key={p.instanceId} pokemon={p} />
         ))}
       </div>

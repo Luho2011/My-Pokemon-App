@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react'
-
-type Routes = {
-  id: string
-  name: string
-}
+import type { Route } from '@/lib/types'
 
 type PokemonRoutesProps = {
   id: string
-  routes: Routes[]
+  routes: Route[]
 }
 
 

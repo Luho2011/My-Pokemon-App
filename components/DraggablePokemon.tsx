@@ -1,8 +1,9 @@
 "use client"
 
 import { useDraggable } from "@dnd-kit/core"
+import type { Pokemon } from "@/lib/types"
 
-export default function DraggablePokemon({ pokemon }: any) {
+export default function DraggablePokemon({ pokemon }: { pokemon: Pokemon }) {
   const { setNodeRef, listeners, attributes } = useDraggable({
     id: pokemon.instanceId,
     data: pokemon,

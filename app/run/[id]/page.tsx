@@ -3,6 +3,8 @@ import { use } from "react"
 import { useEffect, useState } from "react"
 import {
   DndContext,
+  type DragEndEvent,
+  type DragStartEvent,
   DragOverlay,
   PointerSensor,
   useSensor,
@@ -15,14 +17,15 @@ import DeathList from "@/components/DeathList"
 import { createPokemon } from "@/lib/createPokemon"
 import PokemonStrength from "@/components/PokemonStrength"
 import PokemonRoutes from "@/components/PokemonRoutes"
+import type { Board, PokeApiEntry, Pokemon, Route } from "@/lib/types"
 
 
 export default function RunPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
-  const [selectedPokemon, setSelectedPokemon] = useState<any>(null)
-  const [activePokemon, setActivePokemon] = useState<any>(null)
-  const [routes, setRoutes] = useState<any[]>([])
-  const [board, setBoard] = useState<any>({
+  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null)
+  const [activePokemon, setActivePokemon] = useState<Pokemon | null>(null)
+  const [routes, setRoutes] = useState<Route[]>([])
+  const [board, setBoard] = useState<Board>({
     player1: [],
     player2: [],
     player3: [],
@@ -42,7 +45,7 @@ export default function RunPage({ params }: { params: Promise<{ id: string }> })
       const res = await fetch(`/api/run/${id}`)
       const data = await res.json()
 
-      const grouped: any = {
+      const grouped: Board = {
         player1: [],
         player2: [],
         player3: [],
@@ -51,10 +54,11 @@ export default function RunPage({ params }: { params: Promise<{ id: string }> })
       }
 
       // geht die liste (db) der pokemon des run durch in api/run/ und holt alle pokemon als data. dann checken, wo es sich befindet
-      data.pokemon.forEach((p: any) => {
+      ;(data.pokemon as Pokemon[]).forEach((p) => {
         // befindet sich das pokemon nicht in player1-4 oder death, dann erstelle grouped[bench]. hat pokemon slot = player1, push es grouped[player1].push(gluamanda)
-        if (!grouped[p.slot]) grouped[p.slot] = []
-        grouped[p.slot].push(p)
+        const slot = p.slot ?? "bench"
+        if (!grouped[slot]) grouped[slot] = []
+        grouped[slot].push(p)
       })
 
       setBoard(grouped)
@@ -65,7 +69,7 @@ export default function RunPage({ params }: { params: Promise<{ id: string }> })
   }, [id])
 
   //  SEARCH SELECT
-const handleSelectPokemon = async (pokemon: any) => {
+const handleSelectPokemon = async (pokemon: PokeApiEntry) => {
   const created = createPokemon(pokemon)
 
   setSelectedPokemon(created)
@@ -81,29 +85,29 @@ const handleSelectPokemon = async (pokemon: any) => {
 }
 
   //  DRAG START
-  const handleDragStart = (event: any) => {
-    setActivePokemon(event.active.data.current)
+  const handleDragStart = (event: DragStartEvent) => {
+    setActivePokemon(event.active.data.current as Pokemon)
   }
 
   //  DRAG END (DB + UI SYNC)
-  const handleDragEnd = async (event: any) => {
+  const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event
 
     setActivePokemon(null)
     if (!over) return
 
-    const pokemon = active.data.current
+    const pokemon = active.data.current as Pokemon | undefined
     if (!pokemon?.instanceId) return
 
-    const targetSlot = over.id
+    const targetSlot = String(over.id)
 
     //  UI UPDATE
-    setBoard((prev: any) => {
+    setBoard((prev) => {
       const copy = structuredClone(prev)
 
       for (const key in copy) {
         copy[key] = copy[key].filter(
-          (p: any) => p.instanceId !== pokemon.instanceId
+          (p) => p.instanceId !== pokemon.instanceId
         )
       }
 
@@ -123,7 +127,7 @@ await fetch("/api/pokemon/move", {
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
     instanceId: pokemon.instanceId,
-    slot: over.id,
+    slot: targetSlot,
   }),
 })
 

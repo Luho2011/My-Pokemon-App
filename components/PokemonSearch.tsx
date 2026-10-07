@@ -2,15 +2,16 @@
 
 import { useEffect, useState, useRef  } from "react"
 import { getFirst151Pokemon, getPokemonId, normalizePokemonQuery } from "@/lib/pokemon"
+import type { PokeApiEntry } from "@/lib/types"
 
 
 export default function PokemonSearch({
       setSelectedPokemon,
 }: {
-  setSelectedPokemon: (p: any) => void
+  setSelectedPokemon: (p: PokeApiEntry) => void
 }) {
-    
-  const [pokemon, setPokemon] = useState<any[]>([])
+
+  const [pokemon, setPokemon] = useState<PokeApiEntry[]>([])
   const [query, setQuery] = useState("")
   const wrapperRef = useRef<HTMLDivElement>(null)
 

@@ -1,8 +1,9 @@
 "use client"
 
 import { useDraggable } from "@dnd-kit/core"
+import type { Pokemon } from "@/lib/types"
 
-export default function PokemonCard({ pokemon }: any) {
+export default function PokemonCard({ pokemon }: { pokemon: Pokemon }) {
   if (!pokemon?.img) return null // 🔥 safety
 
   const { setNodeRef, listeners, attributes } = useDraggable({

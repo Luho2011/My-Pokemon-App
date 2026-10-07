@@ -1,4 +1,6 @@
-export function createPokemon(pokemon: any) {
+import type { Pokemon, PokeApiEntry } from "./types"
+
+export function createPokemon(pokemon: PokeApiEntry): Pokemon & { url: string } {
   const id = pokemon.url.split("/").filter(Boolean).pop()
 
   return {
