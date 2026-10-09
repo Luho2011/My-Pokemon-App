@@ -28,6 +28,7 @@ model Pokemon {
   run         Run      @relation(fields: [runId], references: [id])
 
   slot        String   // player1 | player2 | player3 | player4 | death
+  position    Int?     // Link-Zeile in player1..4, null bei bench/death
 }
 
 model Route {

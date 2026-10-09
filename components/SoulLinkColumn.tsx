@@ -17,10 +17,18 @@ type Props = {
   pokemonList: Pokemon[]
   color: ColorVariant
   onRemove: (instanceId: string) => void
+  rowCount: number
+  hoveredRow: number | null
+  onHoverRow: (row: number | null) => void
 }
 
-export default function SoulLinkColumn({ id, player, pokemonList, color, onRemove }: Props) {
+export default function SoulLinkColumn({ id, player, pokemonList, color, onRemove, rowCount, hoveredRow, onHoverRow }: Props) {
   const { setNodeRef, isOver } = useDroppable({ id })
+
+  // eine Zelle pro Link-Zeile, leere Zeilen als Platzhalter, damit alle Spalten gleich hoch sind
+  const rows = Array.from({ length: rowCount }, (_, row) =>
+    pokemonList.find((p) => p.position === row)
+  )
 
   return (
     <div
@@ -32,9 +40,25 @@ export default function SoulLinkColumn({ id, player, pokemonList, color, onRemov
       <h2 className="font-bold mb-2 text-white">{player}</h2>
 
       <div className="flex flex-col gap-2 items-center">
-        {pokemonList.map((p) => (
-          <DraggablePokemon key={p.instanceId} pokemon={p} onRemove={onRemove} />
-        ))}
+        {rows.map((p, row) =>
+          p ? (
+            <DraggablePokemon
+              key={p.instanceId}
+              pokemon={p}
+              onRemove={onRemove}
+              linkRow={row}
+              highlighted={hoveredRow === row}
+              onHover={onHoverRow}
+            />
+          ) : (
+            <div
+              key={`empty-${row}`}
+              className="h-34 w-76 rounded-2xl border-2 border-dashed border-white/40 flex items-center justify-center text-white/50 text-sm"
+            >
+              leer
+            </div>
+          )
+        )}
       </div>
     </div>
   )

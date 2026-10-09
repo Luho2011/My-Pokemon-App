@@ -54,7 +54,7 @@ export default function PokemonSearch({
     
 
   return (
-    <div ref={wrapperRef} className="max-w-md p-3 bg-blue-900/90 border-3 border-gray-400 rounded-2xl">
+    <div ref={wrapperRef} className="relative max-w-md p-3 bg-blue-900/90 border-3 border-gray-400 rounded-2xl">
       <input
         className="border-2 border-blue-300 p-2 rounded text-white"
         placeholder="Suche Pokémon..."
@@ -62,7 +62,8 @@ export default function PokemonSearch({
         onChange={(e) => setQuery(e.target.value)}
       />
 
-      <div className="mt-2 bg-blue-950 border-2 border-blue-400 rounded-2xl shadow w-[212px]">
+      {filtered.length > 0 && (
+      <div className="absolute left-3 top-full z-100 mt-2 max-h-150 overflow-y-auto bg-blue-950 border-2 border-blue-400 rounded-2xl shadow w-[212px]">
         {filtered.map((p) => {
           const id = getPokemonId(p.url)
           return (
@@ -83,6 +84,7 @@ export default function PokemonSearch({
           )
         })}
       </div>
+      )}
     </div>
   )
 }

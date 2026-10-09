@@ -3,6 +3,7 @@ export type Pokemon = {
   name: string
   img: string
   slot?: string
+  position?: number | null
 }
 
 export type Route = {
