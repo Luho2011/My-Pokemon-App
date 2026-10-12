@@ -3,6 +3,7 @@
 import { useDraggable } from "@dnd-kit/core"
 import type { Pokemon } from "@/lib/types"
 import { linkColor } from "@/lib/links"
+import TypeBadges from "./TypeBadges"
 
 type Props = {
   pokemon: Pokemon
@@ -10,9 +11,10 @@ type Props = {
   linkRow?: number
   highlighted?: boolean
   onHover?: (row: number | null) => void
+  showTypes?: boolean
 }
 
-export default function DraggablePokemon({ pokemon, onRemove, linkRow, highlighted, onHover }: Props) {
+export default function DraggablePokemon({ pokemon, onRemove, linkRow, highlighted, onHover, showTypes }: Props) {
   const { setNodeRef, listeners, attributes } = useDraggable({
     id: pokemon.instanceId,
     data: pokemon,
@@ -34,6 +36,11 @@ export default function DraggablePokemon({ pokemon, onRemove, linkRow, highlight
         <span className={`absolute top-1 left-2 rounded-full px-2 text-xs font-bold text-white ${color.badge}`}>
           🔗 {linkRow! + 1}
         </span>
+      )}
+      {showTypes && (
+        <div className="absolute bottom-2 left-2 flex flex-col gap-1">
+          <TypeBadges img={pokemon.img} />
+        </div>
       )}
       <button
         type="button"

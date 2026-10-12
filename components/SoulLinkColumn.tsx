@@ -49,6 +49,7 @@ export default function SoulLinkColumn({ id, player, pokemonList, color, onRemov
               linkRow={row}
               highlighted={hoveredRow === row}
               onHover={onHoverRow}
+              showTypes
             />
           ) : (
             <div
