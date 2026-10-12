@@ -49,32 +49,36 @@ export default function PokemonRoutes({ routes, id }: PokemonRoutesProps) {
         </button>
 
     { showRoutes && (
-     <>
-       <div className='flex'> 
+     <div className='mt-2 w-100 p-4 flex flex-col gap-3 bg-blue-900/90 border-4 border-white/70 rounded-3xl text-white'>
+       <div className='flex gap-2'>
         <input
             type="text"
             value={routeInput}
             onChange={(e) => setRouteInput(e.target.value)}
             placeholder="Add Route..."
-            className="rounded-xl border-2 border-white/90 bg-black/90 px-3 py-2 text-white outline-none"
+            className="flex-1 border-2 border-blue-300 p-2 rounded bg-transparent text-white placeholder:text-blue-200 outline-none"
         />
         <button onClick={addRoute}
-                className=" rounded-xl bg-red-600 px-4 py-2 text-white font-bold cursor-pointer"
+                className="px-4 py-2 rounded-2xl border-2 border-white/70 bg-linear-to-b from-emerald-400 to-emerald-600 hover:from-emerald-500 hover:to-emerald-700 text-white font-bold cursor-pointer"
         >
             Add
         </button>
-       </div> 
+       </div>
 
-         <div className="mt-1 flex flex-col gap-1">
+       {routes1.length === 0 ? (
+         <p className="text-sm text-blue-200">Noch keine Routen.</p>
+       ) : (
+         <div className="flex flex-col gap-2 max-h-80 overflow-y-auto">
             {routes1.map((route) => (
                 <div key={route.id}
-                     className=" rounded-xl bg-black/90 px-3 py-2 text-white"
+                     className="rounded-2xl bg-blue-950 border-2 border-blue-400 px-3 py-2"
                 >
                  {route.name}
                 </div>
             ))}
          </div>
-     </>
+       )}
+     </div>
     )}
     </div>
   )
