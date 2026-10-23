@@ -56,8 +56,8 @@ pixi: "clefable",
 vulpix: "vulpix",
 vulnona: "ninetales",
 
-pummeluff: "Jigglypuff",
-knuddeluff: "Wigglytuff",
+pummeluff: "jigglypuff",
+knuddeluff: "wigglytuff",
 
 zubat: "zubat",
 golbat: "golbat",
@@ -92,8 +92,8 @@ machock: "machoke",
 machomei: "machamp",
 
 knofensa: "bellsprout",
-ultrigaria: "Weepinbell",
-sarzenia: "Weepinbell",
+ultrigaria: "weepinbell",
+sarzenia: "victreebel",
 
 nebulak: "gastly",
 alpollo: "haunter",
@@ -116,7 +116,7 @@ lahmus: "slowbro",
 magnetilo: "magnemite",
 magneton: "magneton",
 
-porenta: "farfetch'd",
+porenta: "farfetchd",
 
 dodu: "doduo",
 dodri: "dodrio",
@@ -165,7 +165,7 @@ golking: "seaking",
 sterndu: "staryu",
 starmie: "starmie",
 
-pantimos: "mr. mime",
+pantimos: "mr-mime",
 
 sichlor: "scyther",
 rossana: "jynx",
@@ -197,7 +197,15 @@ kabutops: "kabutops",
 
 aerodactyl: "aerodactyl",
 
+traumato: "drowzee",
+
 relaxo: "snorlax",
+
+muschas: "shellder",
+austos: "cloyster",
+
+tentacha: "tentacool",
+tentoxa: "tentacruel",
 
 arktos: "articuno",
 zapdos: "zapdos",
