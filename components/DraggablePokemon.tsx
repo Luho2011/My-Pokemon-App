@@ -4,6 +4,7 @@ import { useDraggable } from "@dnd-kit/core"
 import type { Pokemon } from "@/lib/types"
 import { linkColor } from "@/lib/links"
 import TypeBadges from "./TypeBadges"
+import TypeMatchups from "./TypeMatchups"
 
 type Props = {
   pokemon: Pokemon
@@ -30,7 +31,7 @@ export default function DraggablePokemon({ pokemon, onRemove, linkRow, highlight
     <div
       onMouseEnter={() => linkRow != null && onHover?.(linkRow)}
       onMouseLeave={() => linkRow != null && onHover?.(null)}
-      className={`relative h-34 rounded-2xl bg-linear-to-br ${background} shadow-lg shadow-green-900/20 px-22 transition-transform ${frame}`}
+      className={`relative h-36 rounded-2xl bg-linear-to-br ${background} shadow-lg shadow-green-900/20 px-22 transition-transform ${frame}`}
     >
       {color && (
         <span className={`absolute top-1 left-2 rounded-full px-2 text-xs font-bold text-white ${color.badge}`}>
@@ -38,9 +39,14 @@ export default function DraggablePokemon({ pokemon, onRemove, linkRow, highlight
         </span>
       )}
       {showTypes && (
-        <div className="absolute bottom-2 left-2 flex flex-col gap-1">
-          <TypeBadges img={pokemon.img} />
-        </div>
+        <>
+          <div className="absolute bottom-2 left-2 flex flex-col gap-1">
+            <TypeBadges img={pokemon.img} />
+          </div>
+          <div className="absolute top-6 right-1">
+            <TypeMatchups img={pokemon.img} />
+          </div>
+        </>
       )}
       <button
         type="button"

@@ -114,3 +114,78 @@ export function getPokemonTypes(img: string): PokemonType[] {
   const match = img.match(/(\d+)\.png$/)
   return match ? POKEMON_TYPES[Number(match[1])] ?? [] : []
 }
+
+// Gen-3-Typentabelle: Angreifer → Verteidiger
+const SUPER_EFFECTIVE: Record<PokemonType, PokemonType[]> = {
+  normal: [],
+  fire: ["grass", "ice", "bug", "steel"],
+  water: ["fire", "ground", "rock"],
+  grass: ["water", "ground", "rock"],
+  electric: ["water", "flying"],
+  ice: ["grass", "ground", "flying", "dragon"],
+  fighting: ["normal", "ice", "rock", "dark", "steel"],
+  poison: ["grass"],
+  ground: ["fire", "electric", "poison", "rock", "steel"],
+  flying: ["grass", "fighting", "bug"],
+  psychic: ["fighting", "poison"],
+  bug: ["grass", "psychic", "dark"],
+  rock: ["fire", "ice", "flying", "bug"],
+  ghost: ["psychic", "ghost"],
+  dragon: ["dragon"],
+  dark: ["psychic", "ghost"],
+  steel: ["ice", "rock"],
+}
+
+const NOT_VERY_EFFECTIVE: Record<PokemonType, PokemonType[]> = {
+  normal: ["rock", "steel"],
+  fire: ["fire", "water", "rock", "dragon"],
+  water: ["water", "grass", "dragon"],
+  grass: ["fire", "grass", "poison", "flying", "bug", "dragon", "steel"],
+  electric: ["electric", "grass", "dragon"],
+  ice: ["fire", "water", "ice", "steel"],
+  fighting: ["poison", "flying", "psychic", "bug"],
+  poison: ["poison", "ground", "rock", "ghost"],
+  ground: ["grass", "bug"],
+  flying: ["electric", "rock", "steel"],
+  psychic: ["psychic", "steel"],
+  bug: ["fire", "fighting", "poison", "flying", "ghost", "steel"],
+  rock: ["fighting", "ground", "steel"],
+  ghost: ["dark", "steel"],
+  dragon: ["steel"],
+  dark: ["fighting", "dark", "steel"],
+  steel: ["fire", "water", "electric", "steel"],
+}
+
+const IMMUNE: Partial<Record<PokemonType, PokemonType[]>> = {
+  normal: ["ghost"],
+  electric: ["ground"],
+  fighting: ["ghost"],
+  poison: ["steel"],
+  ground: ["flying"],
+  psychic: ["dark"],
+  ghost: ["normal"],
+}
+
+const ALL_TYPES = Object.keys(TYPE_INFO) as PokemonType[]
+
+function effectiveness(attacker: PokemonType, defender: PokemonType): number {
+  if (IMMUNE[attacker]?.includes(defender)) return 0
+  if (SUPER_EFFECTIVE[attacker].includes(defender)) return 2
+  if (NOT_VERY_EFFECTIVE[attacker].includes(defender)) return 0.5
+  return 1
+}
+
+// Angriffstypen, die gegen dieses Pokémon mind. 2× treffen (4× zuerst)
+export function getWeaknesses(types: PokemonType[]): { type: PokemonType; multiplier: number }[] {
+  return ALL_TYPES.map((type) => ({
+    type,
+    multiplier: types.reduce((m, def) => m * effectiveness(type, def), 1),
+  }))
+    .filter(({ multiplier }) => multiplier >= 2)
+    .sort((a, b) => b.multiplier - a.multiplier)
+}
+
+// Typen, gegen die mind. einer der eigenen Typen sehr effektiv ist
+export function getStrengths(types: PokemonType[]): PokemonType[] {
+  return [...new Set(types.flatMap((t) => SUPER_EFFECTIVE[t]))]
+}
