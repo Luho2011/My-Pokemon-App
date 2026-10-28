@@ -9,7 +9,7 @@ export default function TypeMatchups({ img }: { img: string }) {
   const strengths = getStrengths(types)
 
   return (
-    <div className="flex w-[84px] flex-col gap-1">
+    <div className="flex w-[100px] flex-col gap-1">
       {weaknesses.length > 0 && (
         <div title="Schwach gegen" className="flex flex-wrap gap-0.5 rounded-lg border-2 border-red-500 bg-red-500/15 p-px">
           {weaknesses.map(({ type, multiplier }) => (
